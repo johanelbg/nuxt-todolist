@@ -5,10 +5,20 @@
         <UpperCard/>
       </v-layout>
       <div>
-        <v-divider class="mt-3"/>
-        <v-btn @click="openDialog" class="add-button" color="accent" depressed fab>
-          <v-icon>add</v-icon>
-        </v-btn>
+        <v-layout row wrap align-center>
+          <v-divider class="my-3"/>
+          <v-btn @click="openDialog" color="accent" depressed fab>
+            <v-icon>add</v-icon>
+          </v-btn>
+        </v-layout>
+      </div>
+      <div v-if="!todosLength">
+        <h5 class="headline grey--text">No data yet, start by adding a task</h5>
+      </div>
+      <div v-else>
+        <v-layout column>
+          <TodoItem v-for="todo in todos" :key="todo.id" :todoItem="todo"/>
+        </v-layout>
       </div>
     </v-card>
     <TodoDialog :dialogProps.sync="todoDialog" :todoProps.sync="todo" @save="handleSave"/>
@@ -16,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 const initialState = () => ({
   text: '',
@@ -26,13 +36,19 @@ const initialState = () => ({
 export default {
   components: {
     UpperCard: () => import('@/components/UpperCard'),
-    TodoDialog: () => import('@/components/TodoDialog')
+    TodoDialog: () => import('@/components/TodoDialog'),
+    TodoItem: () => import('@/components/TodoItem')
   },
 
   data: () => ({
     todoDialog: false,
     todo: initialState()
   }),
+
+  computed: {
+    ...mapState('todos', ['todos']),
+    ...mapGetters('todos', ['todosLength'])
+  },
 
   methods: {
     ...mapActions('todos', ['postTodo']),
@@ -50,12 +66,6 @@ export default {
 .card-box {
   width: 100%;
   max-width: 800px;
-}
-
-.add-button {
-  position: absolute;
-  right: 0;
-  bottom: -17px;
 }
 </style>
 
