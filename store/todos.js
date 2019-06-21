@@ -1,3 +1,7 @@
 export const state = () => ({
-  list: []
+  todos: []
 })
+
+export const getters = {
+  todosLength: ({ todos }) => todos.length
+}
