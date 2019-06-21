@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container>
+      <v-container fluid class="main-bg">
         <nuxt/>
       </v-container>
     </v-content>
@@ -15,3 +15,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.main-bg {
+  height: 100vh;
+  background: #de6161;
+  background: -webkit-linear-gradient(to bottom, #2657eb, #de6161);
+  background: linear-gradient(to bottom, #2657eb, #de6161);
+}
+</style>
+
