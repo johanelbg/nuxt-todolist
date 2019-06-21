@@ -21,7 +21,12 @@
         </v-layout>
       </div>
     </v-card>
-    <TodoDialog :dialogProps.sync="todoDialog" :todoProps.sync="todo" @save="handleSave"/>
+    <TodoDialog
+      :dialogProps.sync="todoDialog"
+      :todoProps.sync="todo"
+      :saveLoading="saveLoading"
+      @save="handleSave"
+    />
   </v-layout>
 </template>
 
@@ -42,7 +47,8 @@ export default {
 
   data: () => ({
     todoDialog: false,
-    todo: initialState()
+    todo: initialState(),
+    saveLoading: false
   }),
 
   computed: {
@@ -55,8 +61,16 @@ export default {
     openDialog() {
       this.todoDialog = true
     },
-    handleSave() {
-      this.todo.id ? console.log('edit') : console.log('post')
+    async handleSave() {
+      try {
+        this.saveLoading = true
+        this.todo.id
+          ? console.log('edit coming...')
+          : await this.postTodo(this.todo)
+      } finally {
+        this.saveLoading = true
+        this.todoDialog = false
+      }
     }
   }
 }

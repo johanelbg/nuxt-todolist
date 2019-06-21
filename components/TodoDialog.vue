@@ -7,7 +7,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer/>
-        <v-btn color="primary" depressed round @click="$emit('save')">Save</v-btn>
+        <v-btn color="primary" depressed round :loading="saveLoading" @click="$emit('save')">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -17,7 +17,8 @@
 export default {
   props: {
     dialogProps: { type: Boolean, required: true },
-    todoProps: { type: Object, required: true }
+    todoProps: { type: Object, required: true },
+    saveLoading: { type: Boolean, required: true }
   },
 
   computed: {

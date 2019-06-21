@@ -2,7 +2,7 @@
   <div class="item-box">
     <v-layout row wrap fill-height align-center justify-space-between>
       <div class="text-truncate">
-        <h6 class="title grey--text font-weight-light">{{todoItem.text}}</h6>
+        <h6 class="title font-weight-light">{{todoItem.text}}</h6>
       </div>
     </v-layout>
   </div>
