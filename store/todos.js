@@ -17,7 +17,6 @@ export const mutations = {
 
 export const actions = {
   async postTodo({ commit, state }, { text }) {
-    console.log(uuid())
     const url = 'todos'
     const { data } = await axios.post(url, {
       text,
