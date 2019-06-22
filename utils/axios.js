@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/johanelbg/nuxt-todolist/'
+  baseURL: 'http://localhost:3001/'
 })
 
 export default axiosInstance

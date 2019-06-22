@@ -1,8 +1,36 @@
 <template>
   <div class="item-box">
-    <v-layout row wrap fill-height align-center justify-space-between>
+    <v-layout row fill-height align-center justify-space-between>
       <div class="text-truncate">
-        <h6 class="title font-weight-light">{{todoItem.text}}</h6>
+        <h6 class="title font-weight-light blue-grey-darken-1--text">{{todoItem.text}}</h6>
+      </div>
+      <div>
+        <v-speed-dial
+          v-model="fab"
+          direction="left"
+          transition="slide-y-reverse-transition"
+          :open-on-hover="true"
+        >
+          <template v-slot:activator>
+            <v-btn v-model="fab" color="primary" small depressed fab>
+              <v-icon>more_vert</v-icon>
+              <v-icon>close</v-icon>
+            </v-btn>
+          </template>
+          <v-btn fab dark small color="green" @click="$emit('update', todoItem)">
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn
+            fab
+            dark
+            small
+            color="red"
+            @click="$emit('delete', todoItem.id)"
+            :loading="deleteLoading"
+          >
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </v-speed-dial>
       </div>
     </v-layout>
   </div>
@@ -11,13 +39,18 @@
 <script>
 export default {
   props: {
-    todoItem: { type: Object, required: true }
-  }
+    todoItem: { type: Object, required: true },
+    deleteLoading: { type: Boolean, required: true }
+  },
+
+  data: () => ({
+    fab: false
+  })
 }
 </script>
 
 <style scoped>
 .item-box {
-  height: 40px;
+  height: 60px;
 }
 </style>

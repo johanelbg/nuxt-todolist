@@ -6,9 +6,12 @@
           <span>{{getDay(date)}}</span>,
           <span class="font-weight-light">{{date.getDate()}}</span>
         </h4>
-        <h5 class="headline text-capitalize grey--text">{{getMonth(date)}}</h5>
+        <h5 class="headline text-capitalize font-weight-light grey--text">{{getMonth(date)}}</h5>
       </div>
-      <h6 class="title grey--text">{{todosLength}} {{taskText}}</h6>
+      <h6 class="title grey--text">
+        {{todosLength}}
+        <span class="font-weight-light">{{taskText}}</span>
+      </h6>
     </v-layout>
   </div>
 </template>
@@ -28,7 +31,7 @@ export default {
   computed: {
     ...mapGetters('todos', ['todosLength']),
     taskText() {
-      return this.todosLength ? 'Tasks' : 'Task'
+      return this.todosLength > 1 ? 'Tasks' : 'Task'
     }
   }
 }

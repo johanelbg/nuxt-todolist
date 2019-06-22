@@ -4,9 +4,12 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
+
+# run the fake JSON server
+$ json-server --watch db.json --p 3001
 
 # serve with hot reload at localhost:3000
 $ npm run dev
