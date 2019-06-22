@@ -18,14 +18,16 @@
       </div>
       <div v-else class="todos-box">
         <v-layout column>
-          <TodoItem
-            v-for="todo in todos"
-            :key="todo.id"
-            :todoItem="todo"
-            :deleteLoading="deleteLoading"
-            @delete="handleDelete"
-            @update="handleUpdate"
-          />
+          <transition-group name="fade">
+            <TodoItem
+              v-for="todo in todos"
+              :key="todo.id"
+              :todoItem="todo"
+              :deleteLoading="deleteLoading"
+              @delete="handleDelete"
+              @update="handleUpdate"
+            />
+          </transition-group>
         </v-layout>
       </div>
     </v-card>
@@ -125,6 +127,15 @@ export default {
 .todos-box {
   max-height: 60vh;
   overflow-y: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 
