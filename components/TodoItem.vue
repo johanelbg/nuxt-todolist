@@ -1,8 +1,14 @@
 <template>
   <div class="item-box">
-    <v-layout row fill-height align-center justify-space-between>
+    <v-layout row fill-height align-center justify-space-between class="layout-box">
       <div class="text-truncate">
-        <h6 class="title font-weight-light blue-grey-darken-1--text">{{todoItem.text}}</h6>
+        <v-layout row align-baseline>
+          <div class="mr-1">
+            <v-icon v-if="isTag('#important')" color="red">notification_important</v-icon>
+            <v-icon v-if="isTag('#later')" color="green">watch_later</v-icon>
+          </div>
+          <h6 class="title font-weight-light blue-grey-darken-1--text">{{todoItem.text}}</h6>
+        </v-layout>
       </div>
       <div>
         <v-speed-dial
@@ -12,7 +18,7 @@
           :open-on-hover="true"
         >
           <template v-slot:activator>
-            <v-btn v-model="fab" color="primary" small depressed fab>
+            <v-btn v-model="fab" color="primary" class="ma-0" small depressed fab>
               <v-icon>more_vert</v-icon>
               <v-icon>close</v-icon>
             </v-btn>
@@ -45,12 +51,22 @@ export default {
 
   data: () => ({
     fab: false
-  })
+  }),
+
+  methods: {
+    isTag(tag) {
+      return this.todoItem.text.split(' ').includes(tag)
+    }
+  }
 }
 </script>
 
 <style scoped>
 .item-box {
   height: 60px;
+}
+
+.layout-box {
+  overflow: hidden;
 }
 </style>
