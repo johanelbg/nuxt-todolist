@@ -2,15 +2,15 @@ import axios from '@/utils/axios'
 import uuid from 'uuidv4'
 
 export const state = () => ({
-  todos: []
+  todos: [],
 })
 
 export const getters = {
-  todosLength: ({ todos }) => todos.length
+  todosLength: ({ todos }) => todos.length,
 }
 
 export const mutations = {
-  getTodos(state, todos) {
+  setTodos(state, todos) {
     state.todos = [...todos]
   },
   addTodo(state, todo) {
@@ -21,23 +21,23 @@ export const mutations = {
   },
   updateTodo(state, todo) {
     state.todos = state.todos.map(item => (item.id === todo.id ? todo : item))
-  }
+  },
 }
 
 export const actions = {
   async getAllTodos({ commit }) {
     const url = 'todos'
     const { data } = await axios.get(url)
-    commit('getTodos', data)
+    commit('setTodos', data)
   },
 
   async postTodo({ commit }, { text }) {
     if (!text || typeof text !== 'string')
-      throw new Error(`text not a string: ${id}`)
+      throw new Error(`text not a string: ${typeof text}`)
     const url = 'todos'
     const { data } = await axios.post(url, {
       text,
-      id: uuid().slice(0, 8)
+      id: uuid().slice(0, 8),
     })
     commit('addTodo', data)
   },
@@ -56,5 +56,13 @@ export const actions = {
     const url = `todos/${id}`
     await axios.put(url, { text })
     commit('updateTodo', todo)
-  }
+  },
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
 }

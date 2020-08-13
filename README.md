@@ -8,6 +8,9 @@
 # install dependencies
 $ npm install
 
+# install json server
+$ npm install -g json-server
+
 # run the fake JSON server
 $ json-server --watch db.json --p 3001
 

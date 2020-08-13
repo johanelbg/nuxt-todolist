@@ -1,25 +1,46 @@
 <template>
-  <v-layout column justify-center align-center full-width fill-height>
-    <v-progress-circular indeterminate :size="70" color="white" v-if="getLoading"/>
+  <v-layout
+    column
+    justify-center
+    align-center
+    full-width
+    fill-height
+    ref="index-box"
+  >
+    <v-progress-circular
+      indeterminate
+      :size="70"
+      color="white"
+      v-if="getLoading"
+    />
     <v-card class="card-box pa-3" v-else>
       <v-layout column>
-        <UpperCard/>
+        <UpperCard :todos-length="todosLength" />
       </v-layout>
       <div>
         <v-layout row wrap align-center>
-          <v-divider class="my-3"/>
-          <v-btn @click="todoDialog = true" color="accent" depressed fab>
+          <v-divider class="my-3" />
+          <v-btn
+            @click.native="todoDialog = true"
+            color="accent"
+            depressed
+            fab
+            ref="open-dialog-button"
+          >
             <v-icon>add</v-icon>
           </v-btn>
         </v-layout>
       </div>
       <div v-if="!todosLength">
-        <h5 class="headline font-weight-light grey--text">Start by adding a task</h5>
+        <h5 class="headline font-weight-light grey--text">
+          Start by adding a task
+        </h5>
       </div>
       <div v-else class="todos-box">
         <v-layout column>
           <transition-group name="fade">
             <TodoItem
+              ref="todo-item"
               v-for="todo in todos"
               :key="todo.id"
               :todoItem="todo"
@@ -42,17 +63,20 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import UpperCard from '@/components/UpperCard'
+import TodoDialog from '@/components/TodoDialog'
+import TodoItem from '@/components/TodoItem'
 
 const initialState = () => ({
   text: '',
-  id: ''
+  id: '',
 })
 
 export default {
   components: {
-    UpperCard: () => import('@/components/UpperCard'),
-    TodoDialog: () => import('@/components/TodoDialog'),
-    TodoItem: () => import('@/components/TodoItem')
+    UpperCard,
+    TodoDialog,
+    TodoItem,
   },
 
   data: () => ({
@@ -60,16 +84,16 @@ export default {
     getLoading: false,
     todoDialog: false,
     saveLoading: false,
-    deleteLoading: false
+    deleteLoading: false,
   }),
 
-  created() {
-    this.handleGetTodos()
+  async created() {
+    await this.handleGetTodos()
   },
 
   computed: {
     ...mapState('todos', ['todos']),
-    ...mapGetters('todos', ['todosLength'])
+    ...mapGetters('todos', ['todosLength']),
   },
 
   methods: {
@@ -77,7 +101,7 @@ export default {
       'getAllTodos',
       'postTodo',
       'deleteTodo',
-      'putTodo'
+      'putTodo',
     ]),
     async handleSave() {
       try {
@@ -113,8 +137,8 @@ export default {
     handleUpdate(todo) {
       this.todo = { ...todo }
       this.todoDialog = true
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -138,4 +162,3 @@ export default {
   opacity: 0;
 }
 </style>
-

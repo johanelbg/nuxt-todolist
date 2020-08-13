@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <v-container fluid class="main-bg">
-        <nuxt/>
+        <nuxt />
       </v-container>
     </v-content>
   </v-app>
@@ -12,7 +12,7 @@
 export default {
   data() {
     return {}
-  }
+  },
 }
 </script>
 
@@ -24,4 +24,3 @@ export default {
   background: linear-gradient(to bottom, #2657eb, #de6161);
 }
 </style>
-
