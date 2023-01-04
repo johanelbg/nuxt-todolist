@@ -20,7 +20,7 @@
     "uuidv4": "^4.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-unit-jest": "^4.5.3",
+    "@vue/cli-plugin-unit-jest": "^5.0.8",
     "@vue/test-utils": "^1.0.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.1.4",
